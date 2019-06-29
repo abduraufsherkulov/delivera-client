@@ -15,7 +15,7 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const BG_IMAGE = require("../../assets/images/bg_screen1.jpg");
 
-export default class Register extends Component {
+export default class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -63,10 +63,7 @@ export default class Register extends Component {
             <View style={styles.loginView}>
               <View style={styles.loginTitle}>
                 <View style={{ flexDirection: "row" }}>
-                  <Text style={styles.backText}>Welcome back</Text>
-                </View>
-                <View style={{ marginTop: -10 }}>
-                  <Text style={styles.backText}>You've been missing</Text>
+                  <Text style={styles.backText}>Login</Text>
                 </View>
               </View>
               <View style={styles.loginInput}>
