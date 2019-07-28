@@ -4,7 +4,9 @@ const { width, height } = Dimensions.get("window");
 
 export const colors = {
   mainColor: "#6BB267",
-  disabledColor: "#BFBFBF"
+  disabledColor: "#BFBFBF",
+  borderColor: "#EDEDED",
+  mainBoldColor: "#33C37B"
 };
 
 export const fonts = {

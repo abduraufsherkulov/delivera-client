@@ -1,5 +1,5 @@
 import React from "react";
-import Svg, { Path, G } from "react-native-svg";
+import Svg, { Rect, Circle, Path } from 'react-native-svg'
 
 export const RegisterSvg = props => (
   <Svg {...props} width="90%" height="70%" fill="none" viewBox="0 0 291 256">
@@ -290,10 +290,36 @@ export const HamburgerIcon = props => (
   </Svg>
 );
 export const CartIcon = props => (
-  <Svg viewBox="0 0 24 30.2" width="70%" height="100%" fill="none" {...props}>
+  <Svg viewBox="0 0 24 31" width="50%" height="50%" fill="none" {...props}>
     <Path
       d="M23.994 25.946L22.277 6.602a.827.827 0 0 0-.822-.755h-3.532a5.924 5.924 0 0 0-11.847 0H2.545a.822.822 0 0 0-.822.755L.006 25.946c0 .025-.006.049-.006.074a4.274 4.274 0 0 0 4.5 3.993h15a4.274 4.274 0 0 0 4.5-3.994.298.298 0 0 0-.006-.073zM12 1.669a4.273 4.273 0 0 1 4.268 4.178H7.732A4.273 4.273 0 0 1 12 1.669zm7.5 26.687h-15a2.642 2.642 0 0 1-2.845-2.3L3.3 7.513h2.772v2.515a.828.828 0 1 0 1.656 0V7.513h8.542v2.515a.828.828 0 1 0 1.656 0V7.513h2.772l1.649 18.546a2.646 2.646 0 0 1-2.847 2.298v-.001z"
       fill="#000"
     />
   </Svg>
 );
+
+export const AdvancedSearchIcon = props => (
+  <Svg viewBox="0 0 18 16" width="10%" height="35%" fill="none" {...props}>
+    <Rect y={12} width={18} height={2} rx={1} fill="#000" />
+    <Circle cx={7} cy={13} r={2.5} fill="#fff" stroke="#000" />
+    <Rect
+      x={18}
+      y={4}
+      width={18}
+      height={2}
+      rx={1}
+      transform="rotate(180 18 4)"
+      fill="#000"
+    />
+    <Path
+      d="M9.5 3a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0z"
+      fill="#fff"
+      stroke="#000"
+    />
+  </Svg>
+)
+export const RightArrow = props => (
+  <Svg viewBox="0 0 21 18" width="60%" height="60%" fill="none" {...props}>
+     <Path d="M18 9H.5M18 9l-7-7m7 7l-7 7" stroke="#fff" strokeWidth={3} />
+  </Svg>
+)

@@ -7,7 +7,7 @@ import {
   Dimensions
 } from "react-native";
 import { Input, Button, Icon } from "react-native-elements";
-import { Logo } from "../../assets/images/svgs/bundledsvg";
+import { Logo } from "../../assets/images/svgs/BundledSvg";
 import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import Swiper from "react-native-swiper";
-import { RegisterSvg, Logo } from "../../assets/images/svgs/bundledsvg";
+import { RegisterSvg, Logo } from "../../assets/images/svgs/BundledSvg";
 import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
 
 export default class Welcome extends Component {

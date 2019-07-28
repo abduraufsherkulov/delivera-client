@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
-import Welcome from "./components/auth/welcome";
-import Login from "./components/auth/login";
-import Register from "./components/auth/register";
-import { MyApp } from "./components/navigator/drawer";
+import { StyleSheet, View, StatusBar } from "react-native";
+import Welcome from "./components/auth/Welcome";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import { MyApp } from "./components/navigator/Drawer";
 import { fonts } from "./assets/styles/styles";
 import { cacheFonts } from "./assets/helpers/AssetsCaching";
 import { AppLoading } from "expo";
@@ -33,7 +33,8 @@ export default class App extends Component {
       );
     }
     return (
-      <MyApp />
+      <React.Fragment>
+      <MyApp /></React.Fragment>
       // <View style={styles.container}>
       //    <Welcome />
       //    <Register />
