@@ -3,15 +3,14 @@ import {
   createStackNavigator,
   createAppContainer
 } from "react-navigation";
-import Home from "../home/Home";
-import CategoryList from "../category/components/CategoryList";
+import HomeCateogryList from "../home/HomeCateogryList";
 import Beta from "../demo/beta";
 
 const MyDrawerNavigator = createDrawerNavigator(
   {
     // For each screen that you can navigate to, create a new entry like this:
     Alpha: {
-      screen: CategoryList
+      screen: HomeCateogryList
     },
     Beta: {
       screen: Beta

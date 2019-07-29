@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import MainHeader from '../header/Mainheader';
-import HomeSearch from '../search/Homesearch';
+import MainHeader from '../../header/Mainheader';
+import HomeSearch from '../../search/Homesearch';
 import {View, Text} from 'react-native';
-import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
-import CategoryHome from '../category/CategoryHome';
-import NearBy from './components/Nearby';
+import { colors, getAdjustedFontSize } from "../../../assets/styles/styles";
+import CategoryHome from '../../category/CategoryHome';
+import NearBy from './Nearby';
 
-class Home extends Component {
+class HomeBundleTop extends Component {
     constructor(props) {
         super(props);
         this.state = { };
@@ -30,4 +30,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default HomeBundleTop;
