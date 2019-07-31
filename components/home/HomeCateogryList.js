@@ -1,7 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import { View, Text, FlatList, ActivityIndicator } from "react-native";
 import { ListItem, SearchBar } from "react-native-elements";
 import HomeBundleTop from './components/HomeBundleTop';
+
+
+
+class MyListItem extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {  };
+  }
+  render() {
+    return (
+      <ListItem
+        roundAvatar
+        title={`${this.props.items.name.first} ${this.props.items.name.last}`}
+        subtitle={this.props.items.email}
+        avatar={{ uri: this.props.items.picture.thumbnail }}
+        containerStyle={{ borderBottomWidth: 0 }}
+    />
+    );
+  }
+}
 
 class HomeCategoryList extends Component {
   constructor(props) {
@@ -78,13 +98,19 @@ class HomeCategoryList extends Component {
     );
   };
 
-  // renderHeader = () => {
-  //   return <HomeBundleTop />;
-  // };
+  renderHeader = () => {
+    return <HomeBundleTop />;
+  };
 
+  _renderItem = ({item}) => (
+    <MyListItem
+      key={item.name.first}
+      items={item}
+    />
+  );
   renderFooter = () => {
     if (!this.state.loading) return null;
-
+  
     return (
       <View
         style={{
@@ -98,21 +124,15 @@ class HomeCategoryList extends Component {
     );
   };
 
+
   render() {
     return (
       <View style={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
           data={this.state.data}
-          renderItem={({ item }) => (
-            <ListItem
-              roundAvatar
-              title={`${item.name.first} ${item.name.last}`}
-              subtitle={item.email}
-              avatar={{ uri: item.picture.thumbnail }}
-              containerStyle={{ borderBottomWidth: 0 }}
-            />
-          )}
-          keyExtractor={item => item.email}
+          renderItem={this._renderItem}
+          initialNumToRender={3}
+          keyExtractor={item => item.email + Math.random()}
           ItemSeparatorComponent={this.renderSeparator}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}

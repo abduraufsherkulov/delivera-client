@@ -12,6 +12,7 @@ class CategorySlider extends Component {
     this.state = {};
   }
   render() {
+    console.log('rendered');
     return (
       <View style={{ paddingVertical: getAdjustedFontSize(24) }}>
         <ScrollView

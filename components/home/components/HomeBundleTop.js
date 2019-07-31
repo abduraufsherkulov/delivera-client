@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import MainHeader from '../../header/Mainheader';
 import HomeSearch from '../../search/Homesearch';
 import {View, Text} from 'react-native';
@@ -6,7 +6,7 @@ import { colors, getAdjustedFontSize } from "../../../assets/styles/styles";
 import CategoryHome from '../../category/CategoryHome';
 import NearBy from './Nearby';
 
-class HomeBundleTop extends Component {
+class HomeBundleTop extends PureComponent {
     constructor(props) {
         super(props);
         this.state = { };
