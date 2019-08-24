@@ -140,6 +140,7 @@ class HomeCategoryList extends Component {
           refreshing={this.state.refreshing}
           onEndReached={this.handleLoadMore}
           onEndReachedThreshold={50}
+          removeClippedSubviews={true}
         />
       </View>
     );
