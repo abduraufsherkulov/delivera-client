@@ -1,29 +1,52 @@
 import React, { Component, PureComponent } from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
-import { ListItem, SearchBar } from "react-native-elements";
+import { View, Text, FlatList, ActivityIndicator, Image } from "react-native";
+import { ListItem, SearchBar, Card } from "react-native-elements";
 import HomeBundleTop from './components/HomeBundleTop';
+import { Star, Clock } from "../../assets/images/svgs/BundledSvg";
+
 
 
 
 class MyListItem extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {  };
+    this.state = {};
   }
   render() {
     return (
-      <ListItem
-        roundAvatar
-        title={`${this.props.items.name.first} ${this.props.items.name.last}`}
-        subtitle={this.props.items.email}
-        avatar={{ uri: this.props.items.picture.thumbnail }}
-        containerStyle={{ borderBottomWidth: 0 }}
-    />
+      <Card
+        containerStyle={{ borderWidth: 1, borderColor: '#EDEDED', padding: 10 }}
+        // title='HELLO WORLD'
+        image={require('../../assets/images/simples/mainfood.png')}>
+        <View style={{ display: "flex", flexDirection: "column" }}>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <View>
+              <Image source={require('../../assets/images/simples/evosmain.png')} />
+            </View>
+            <View style={{ display: "flex", flexDirection: "column" }}>
+              <Text>EVOS</Text>
+              <View style={{}}><Star /><Text>21 отзыв</Text></View>
+            </View>
+            <View style={{display: 'flex', flexDirection: 'column'}}>
+              <Text>доставка</Text>
+              <Text>от 7000 сум</Text>
+            </View>
+          </View>
+          <View>
+
+          </View>
+        </View>
+        {/* <Button
+          icon={<Icon name='code' color='#ffffff' />}
+          backgroundColor='#03A9F4'
+          buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
+          title='VIEW NOW' /> */}
+      </Card>
     );
   }
 }
 
-class HomeCategoryList extends Component {
+class HomeCategoryList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -102,7 +125,7 @@ class HomeCategoryList extends Component {
     return <HomeBundleTop />;
   };
 
-  _renderItem = ({item}) => (
+  _renderItem = ({ item }) => (
     <MyListItem
       key={item.name.first}
       items={item}
@@ -110,7 +133,7 @@ class HomeCategoryList extends Component {
   );
   renderFooter = () => {
     if (!this.state.loading) return null;
-  
+
     return (
       <View
         style={{
@@ -133,7 +156,7 @@ class HomeCategoryList extends Component {
           renderItem={this._renderItem}
           initialNumToRender={3}
           keyExtractor={item => item.email + Math.random()}
-          ItemSeparatorComponent={this.renderSeparator}
+          // ItemSeparatorComponent={this.renderSeparator}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           onRefresh={this.handleRefresh}
