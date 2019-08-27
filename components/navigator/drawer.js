@@ -1,8 +1,10 @@
 import {
-  createDrawerNavigator,
   createStackNavigator,
   createAppContainer
 } from "react-navigation";
+import {
+  createDrawerNavigator
+} from "react-navigation-drawer";
 import HomeCateogryList from "../home/HomeCateogryList";
 import Beta from "../demo/beta";
 

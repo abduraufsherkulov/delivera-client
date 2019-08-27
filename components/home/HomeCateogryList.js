@@ -1,50 +1,51 @@
 import React, { Component, PureComponent } from "react";
-import { View, Text, FlatList, ActivityIndicator, Image } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet } from "react-native";
 import { ListItem, SearchBar, Card } from "react-native-elements";
 import HomeBundleTop from './components/HomeBundleTop';
 import { Star, Clock } from "../../assets/images/svgs/BundledSvg";
+import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
 
-
-
-
-class MyListItem extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <Card
-        containerStyle={{ borderWidth: 1, borderColor: '#EDEDED', padding: 10 }}
-        // title='HELLO WORLD'
-        image={require('../../assets/images/simples/mainfood.png')}>
-        <View style={{ display: "flex", flexDirection: "column" }}>
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <View>
-              <Image source={require('../../assets/images/simples/evosmain.png')} />
-            </View>
-            <View style={{ display: "flex", flexDirection: "column" }}>
-              <Text>EVOS</Text>
-              <View style={{}}><Star /><Text>21 отзыв</Text></View>
-            </View>
-            <View style={{display: 'flex', flexDirection: 'column'}}>
-              <Text>доставка</Text>
-              <Text>от 7000 сум</Text>
-            </View>
+function MyListItem() {
+  return (
+    <Card
+      containerStyle={{ borderWidth: 1, borderColor: '#EDEDED', padding: 10 }}
+      // title='HELLO WORLD'
+      image={require('../../assets/images/simples/mainfood.png')}>
+      <View style={styles.infoPart}>
+        <View style={styles.infoPartTop}>
+          <View style={{ flexGrow: 1 }}>
+            <Image source={require('../../assets/images/simples/evosmain.png')} />
           </View>
-          <View>
-
+          <View style={{ display: "flex", flexDirection: "column", flexGrow: 2 }}>
+            <Text style={styles.entityTitle}>EVOS</Text>
+            <View style={{ display: "flex", flexDirection: "row", alignItems: 'center' }}><Star /><Text style={styles.comments}>21 отзыв</Text></View>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, }}>
+            <Text style={styles.delivery}>доставка</Text>
+            <Text style={styles.km}>от <Text style={{ fontSize: getAdjustedFontSize(16) }}>7000</Text> сум</Text>
           </View>
         </View>
-        {/* <Button
-          icon={<Icon name='code' color='#ffffff' />}
-          backgroundColor='#03A9F4'
-          buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-          title='VIEW NOW' /> */}
-      </Card>
-    );
-  }
+        <View style={styles.infoPartBottom}>
+          <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <Text style={styles.categories}>Бургеры</Text>
+            <Text style={styles.categories}>Фаст-Фуд</Text>
+            <Text style={styles.categories}>+2</Text>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Clock />
+            <Text style={styles.time}>15-25 мин</Text>
+          </View>
+        </View>
+      </View>
+      {/* <Button
+        icon={<Icon name='code' color='#ffffff' />}
+        backgroundColor='#03A9F4'
+        buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
+        title='VIEW NOW' /> */}
+    </Card>
+  )
 }
+
 
 class HomeCategoryList extends PureComponent {
   constructor(props) {
@@ -169,5 +170,70 @@ class HomeCategoryList extends PureComponent {
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  infoPart: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  infoPartTop: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  infoPartBottom: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: getAdjustedFontSize(8)
+  },
+  entityTitle: {
+    fontFamily: 'bold',
+    fontSize: getAdjustedFontSize(16),
+
+  },
+  comments: {
+    fontFamily: 'regular',
+    fontSize: getAdjustedFontSize(10),
+    color: colors.disabledColor
+  },
+  delivery: {
+    fontFamily: 'regular',
+    fontSize: getAdjustedFontSize(10),
+    color: colors.disabledColor,
+    textAlign: 'right'
+  },
+  km: {
+    fontFamily: 'bold',
+    fontSize: getAdjustedFontSize(10),
+    textAlign: 'right'
+  },
+  categories: {
+    fontFamily: 'regular',
+    fontSize: getAdjustedFontSize(10),
+    backgroundColor: '#e9f3e8',
+    borderRadius: 20,
+    paddingRight: getAdjustedFontSize(5),
+    paddingLeft: getAdjustedFontSize(5)
+  },
+  topInfoSide: {
+    fontFamily: 'bold',
+    fontSize: getAdjustedFontSize(14)
+  },
+  time: {
+    fontFamily: 'regular',
+    fontSize: getAdjustedFontSize(10),
+    color: colors.disabledColor,
+    marginLeft: getAdjustedFontSize(4)
+  },
+  bottomInfoSide: {
+    fontFamily: 'regular',
+    fontSize: getAdjustedFontSize(12),
+    color: colors.disabledColor
+  }
+});
+
+
 
 export default HomeCategoryList;
