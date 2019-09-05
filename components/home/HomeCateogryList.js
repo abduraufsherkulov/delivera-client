@@ -1,48 +1,52 @@
 import React, { Component, PureComponent } from "react";
-import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet } from "react-native";
+import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { ListItem, SearchBar, Card } from "react-native-elements";
 import HomeBundleTop from './components/HomeBundleTop';
 import { Star, Clock } from "../../assets/images/svgs/BundledSvg";
 import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
 
-function MyListItem() {
+function MyListItem(props) {
   return (
-    <Card
-      containerStyle={{ borderWidth: 1, borderColor: '#EDEDED', padding: 10 }}
-      // title='HELLO WORLD'
-      image={require('../../assets/images/simples/mainfood.png')}>
-      <View style={styles.infoPart}>
-        <View style={styles.infoPartTop}>
-          <View style={{ flexGrow: 1 }}>
-            <Image source={require('../../assets/images/simples/evosmain.png')} />
+    <TouchableOpacity
+      onPress={() => props.navigation.navigate('Details')}
+    >
+      <Card
+        containerStyle={{ borderWidth: 1, borderColor: '#EDEDED', padding: 10 }}
+        // title='HELLO WORLD'
+        image={require('../../assets/images/simples/mainfood.png')}>
+        <View style={styles.infoPart}>
+          <View style={styles.infoPartTop}>
+            <View style={{ flexGrow: 1 }}>
+              <Image source={require('../../assets/images/simples/evosmain.png')} />
+            </View>
+            <View style={{ display: "flex", flexDirection: "column", flexGrow: 2 }}>
+              <Text style={styles.entityTitle}>EVOS</Text>
+              <View style={{ display: "flex", flexDirection: "row", alignItems: 'center' }}><Star /><Text style={styles.comments}>21 отзыв</Text></View>
+            </View>
+            <View style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, }}>
+              <Text style={styles.delivery}>доставка</Text>
+              <Text style={styles.km}>от <Text style={{ fontSize: getAdjustedFontSize(16) }}>7000</Text> сум</Text>
+            </View>
           </View>
-          <View style={{ display: "flex", flexDirection: "column", flexGrow: 2 }}>
-            <Text style={styles.entityTitle}>EVOS</Text>
-            <View style={{ display: "flex", flexDirection: "row", alignItems: 'center' }}><Star /><Text style={styles.comments}>21 отзыв</Text></View>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, }}>
-            <Text style={styles.delivery}>доставка</Text>
-            <Text style={styles.km}>от <Text style={{ fontSize: getAdjustedFontSize(16) }}>7000</Text> сум</Text>
+          <View style={styles.infoPartBottom}>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+              <Text style={styles.categories}>Бургеры</Text>
+              <Text style={styles.categories}>Фаст-Фуд</Text>
+              <Text style={styles.categories}>+2</Text>
+            </View>
+            <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Clock />
+              <Text style={styles.time}>15-25 мин</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.infoPartBottom}>
-          <View style={{ display: 'flex', flexDirection: 'row' }}>
-            <Text style={styles.categories}>Бургеры</Text>
-            <Text style={styles.categories}>Фаст-Фуд</Text>
-            <Text style={styles.categories}>+2</Text>
-          </View>
-          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <Clock />
-            <Text style={styles.time}>15-25 мин</Text>
-          </View>
-        </View>
-      </View>
-      {/* <Button
+        {/* <Button
         icon={<Icon name='code' color='#ffffff' />}
         backgroundColor='#03A9F4'
         buttonStyle={{ borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
         title='VIEW NOW' /> */}
-    </Card>
+      </Card>
+    </TouchableOpacity>
   )
 }
 
@@ -67,7 +71,7 @@ class HomeCategoryList extends PureComponent {
 
   makeRemoteRequest = () => {
     const { page, seed } = this.state;
-    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
+    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=5`;
     this.setState({ loading: true });
 
     fetch(url)
@@ -126,10 +130,11 @@ class HomeCategoryList extends PureComponent {
     return <HomeBundleTop />;
   };
 
-  _renderItem = ({ item }) => (
+  _renderItem = ({ item, index }) => (
     <MyListItem
-      key={item.name.first}
+      key={item.name.first + index}
       items={item}
+      navigation={this.props.navigation}
     />
   );
   renderFooter = () => {
@@ -165,6 +170,8 @@ class HomeCategoryList extends PureComponent {
           onEndReached={this.handleLoadMore}
           onEndReachedThreshold={50}
           removeClippedSubviews={true}
+          maxToRenderPerBatch={5}
+          windowSize={5}
         />
       </View>
     );
