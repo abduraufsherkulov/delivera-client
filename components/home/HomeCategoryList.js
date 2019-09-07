@@ -1,9 +1,10 @@
-import React, { Component, PureComponent } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, ActivityIndicator, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { ListItem, SearchBar, Card } from "react-native-elements";
 import HomeBundleTop from './components/HomeBundleTop';
 import { Star, Clock } from "../../assets/images/svgs/BundledSvg";
 import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
+import axios from 'axios';
 
 function MyListItem(props) {
   return (
@@ -20,7 +21,7 @@ function MyListItem(props) {
               <Image source={require('../../assets/images/simples/evosmain.png')} />
             </View>
             <View style={{ display: "flex", flexDirection: "column", flexGrow: 2 }}>
-              <Text style={styles.entityTitle}>EVOS</Text>
+              <Text style={styles.entityTitle}>{props.items.name}</Text>
               <View style={{ display: "flex", flexDirection: "row", alignItems: 'center' }}><Star /><Text style={styles.comments}>21 отзыв</Text></View>
             </View>
             <View style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, }}>
@@ -50,70 +51,10 @@ function MyListItem(props) {
   )
 }
 
+function HomeCategoryList(props) {
+  const [topRestaurants, settopRestaurants] = useState(null)
 
-class HomeCategoryList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      data: [],
-      page: 1,
-      seed: 1,
-      error: null,
-      refreshing: false
-    };
-  }
-
-  componentDidMount() {
-    this.makeRemoteRequest();
-  }
-
-  makeRemoteRequest = () => {
-    const { page, seed } = this.state;
-    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=5`;
-    this.setState({ loading: true });
-
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          data: page === 1 ? res.results : [...this.state.data, ...res.results],
-          error: res.error || null,
-          loading: false,
-          refreshing: false
-        });
-      })
-      .catch(error => {
-        this.setState({ error, loading: false });
-      });
-  };
-
-  handleRefresh = () => {
-    this.setState(
-      {
-        page: 1,
-        seed: this.state.seed + 1,
-        refreshing: true
-      },
-      () => {
-        this.makeRemoteRequest();
-      }
-    );
-  };
-
-  handleLoadMore = () => {
-    this.setState(
-      {
-        page: this.state.page + 1
-      },
-      () => {
-        this.makeRemoteRequest();
-      }
-    );
-  };
-
-  renderSeparator = () => {
+  function renderSeparator() {
     return (
       <View
         style={{
@@ -126,58 +67,85 @@ class HomeCategoryList extends PureComponent {
     );
   };
 
-  renderHeader = () => {
+  function renderHeader() {
     return <HomeBundleTop />;
   };
 
-  _renderItem = ({ item, index }) => (
-    <MyListItem
-      key={item.name.first + index}
-      items={item}
-      navigation={this.props.navigation}
-    />
-  );
-  renderFooter = () => {
-    if (!this.state.loading) return null;
 
-    return (
-      <View
-        style={{
-          paddingVertical: 20,
-          borderTopWidth: 1,
-          borderColor: "#CED0CE"
-        }}
-      >
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
+  function _renderItem({ item, index }) {
+    return (<MyListItem
+      key={item.id + index}
+      items={item}
+      navigation={props.navigation}
+    />)
   };
 
-
-  render() {
-    return (
-      <View style={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-        <FlatList
-          data={this.state.data}
-          renderItem={this._renderItem}
-          initialNumToRender={3}
-          keyExtractor={item => item.email + Math.random()}
-          // ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-          ListFooterComponent={this.renderFooter}
-          onRefresh={this.handleRefresh}
-          refreshing={this.state.refreshing}
-          onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={50}
-          removeClippedSubviews={true}
-          maxToRenderPerBatch={5}
-          windowSize={5}
-        />
-      </View>
-    );
+  function keyExtractor(item, index) {
+    return item.category_domain_id + index;
   }
-}
 
+  // renderFooter = () => {
+  //   if (!this.state.loading) return null;
+
+  //   return (
+  //     <View
+  //       style={{
+  //         paddingVertical: 20,
+  //         borderTopWidth: 1,
+  //         borderColor: "#CED0CE"
+  //       }}
+  //     >
+  //       <ActivityIndicator animating size="large" />
+  //     </View>
+  //   );
+  // };
+
+  useEffect(() => {
+
+    const endpoint = "https://api.delivera.uz/app/popular-entity-list";
+    axios({
+      method: "get",
+      url: endpoint,
+      auth: {
+        username: "delivera",
+        password: "X19WkHHupFJBPsMRPCJwTbv09yCD50E2"
+      },
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+      .then(response => {
+        settopRestaurants(response.data);
+      })
+      .catch(error => {
+        console.log(error, "error on refresh");
+      });
+    // return () => {
+    //   cleanup
+    // };
+  }, [])
+  return (
+    <View style={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+      <FlatList
+        data={topRestaurants}
+        renderItem={_renderItem}
+        initialNumToRender={3}
+        keyExtractor={keyExtractor}
+        // ItemSeparatorComponent={this.renderSeparator}
+        ListHeaderComponent={renderHeader}
+        legacyImplementation={true}
+        // ListFooterComponent={this.renderFooter}
+        // onRefresh={this.handleRefresh}
+        // refreshing={this.state.refreshing}
+        // onEndReached={this.handleLoadMore}
+        // onEndReachedThreshold={50}
+        // removeClippedSubviews={true}
+        // maxToRenderPerBatch={5}
+        // windowSize={5}
+      />
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   infoPart: {

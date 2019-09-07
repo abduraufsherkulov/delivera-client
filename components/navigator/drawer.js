@@ -5,12 +5,17 @@ import {
   createDrawerNavigator
 } from "react-navigation-drawer";
 import { createStackNavigator } from 'react-navigation-stack';
-import HomeCateogryList from "../home/HomeCateogryList";
+import HomeCategoryList from "../home/HomeCategoryList";
 import Beta from "../demo/beta";
 import RestaurantMain from "../restaurants/RestaurantMain";
 
 const HomeStack = createStackNavigator({
-  Home: HomeCateogryList,
+  Home: {
+    screen: HomeCategoryList,
+    navigationOptions: {
+      header: null
+    }
+  },
   Details: RestaurantMain,
 });
 

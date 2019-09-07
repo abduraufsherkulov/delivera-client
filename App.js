@@ -7,6 +7,16 @@ import { MyApp } from "./components/navigator/Drawer";
 import { fonts } from "./assets/styles/styles";
 import { cacheFonts } from "./assets/helpers/AssetsCaching";
 import { AppLoading } from "expo";
+import { decode, encode } from 'base-64'
+
+if (!global.btoa) {
+  global.btoa = encode;
+}
+
+if (!global.atob) {
+  global.atob = decode;
+}
+
 
 export default class App extends Component {
   constructor(props) {
@@ -34,7 +44,7 @@ export default class App extends Component {
     }
     return (
       <React.Fragment>
-      <MyApp /></React.Fragment>
+        <MyApp /></React.Fragment>
       // <View style={styles.container}>
       //    <Welcome />
       //    <Register />
