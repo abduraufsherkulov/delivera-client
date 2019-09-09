@@ -101,7 +101,7 @@ function HomeCategoryList(props) {
   // };
 
   useEffect(() => {
-
+    let ignore = false;
     const endpoint = "https://api.delivera.uz/app/popular-entity-list";
     axios({
       method: "get",
@@ -115,14 +115,14 @@ function HomeCategoryList(props) {
       }
     })
       .then(response => {
-        settopRestaurants(response.data);
+        if (!ignore) settopRestaurants(response.data);
       })
       .catch(error => {
         console.log(error, "error on refresh");
       });
-    // return () => {
-    //   cleanup
-    // };
+    return () => {
+      ignore = true;
+    };
   }, [])
   return (
     <View style={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
@@ -134,14 +134,14 @@ function HomeCategoryList(props) {
         // ItemSeparatorComponent={this.renderSeparator}
         ListHeaderComponent={renderHeader}
         legacyImplementation={true}
-        // ListFooterComponent={this.renderFooter}
-        // onRefresh={this.handleRefresh}
-        // refreshing={this.state.refreshing}
-        // onEndReached={this.handleLoadMore}
-        // onEndReachedThreshold={50}
-        // removeClippedSubviews={true}
-        // maxToRenderPerBatch={5}
-        // windowSize={5}
+      // ListFooterComponent={this.renderFooter}
+      // onRefresh={this.handleRefresh}
+      // refreshing={this.state.refreshing}
+      // onEndReached={this.handleLoadMore}
+      // onEndReachedThreshold={50}
+      // removeClippedSubviews={true}
+      // maxToRenderPerBatch={5}
+      // windowSize={5}
       />
     </View>
   )

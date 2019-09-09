@@ -6,7 +6,7 @@ import Cart from "./components/Cart";
 import HeaderSearch from './components/HeaderSearch';
 
 function MainHeader() {
-  console.log('rendering');
+  // console.log('rendering');
   return (
     <Header
       leftComponent={<Hamburger />}
