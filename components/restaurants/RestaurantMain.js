@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Image, View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Star, Clock, LocationIcon } from "../../assets/images/svgs/BundledSvg";
-import { Card, ListItem } from 'react-native-elements';
+import { Card, ListItem, Avatar } from 'react-native-elements';
 import { colors, getAdjustedFontSize } from "../../assets/styles/styles";
 import { Ionicons } from "@expo/vector-icons";
 import TouchableScale from 'react-native-touchable-scale';
@@ -11,9 +11,12 @@ function ProductCategories(props) {
 
   return (
     props.foods.map((u, i) => {
+      // console.log(u);
       return (
         <ListItem
+          key={u.id + u.image_id + ""}
           Component={TouchableScale}
+          containerStyle={{ borderWidth: 1, borderColor: colors.borderColor, marginTop: getAdjustedFontSize(8), marginRight: getAdjustedFontSize(16), marginLeft: getAdjustedFontSize(16), borderRadius: 20 }}
           friction={90} //
           tension={100} // These props are passed to the parent component (here TouchableScale)
           activeScale={0.95} //
@@ -23,11 +26,13 @@ function ProductCategories(props) {
           //   end: [0.2, 0],
           // }}
           // ViewComponent={LinearGradient} // Only if no expo
-          leftAvatar={{ rounded: true, source: require('../../assets/images/simples/productimage.png') }}
-          title="Chris Jackson"
-          titleStyle={{ color: 'white', fontWeight: 'bold' }}
-          subtitleStyle={{ color: 'white' }}
-          subtitle="Vice Chairman"
+          leftAvatar={<Avatar size="large"
+            source={require('../../assets/images/simples/productimage.png')}
+          />}
+          title={<View style={{display: 'flex', flexDirection: 'column'}}><Text>asdsa</Text><Text>asdsa</Text><Text>asdsa</Text></View>}
+          // titleStyle={{ color: 'red', fontWeight: 'bold' }}
+          // subtitleStyle={{ color: 'red' }}
+          // subtitle="Vice Chairman"
         />
       );
     })
@@ -44,9 +49,9 @@ function MyListItem(props) {
       <View style={styles.eachRow}>
         <View><Text style={{ fontSize: getAdjustedFontSize(24), fontFamily: 'bold' }}>{items.title}</Text></View>
         <View><Text style={{ fontSize: getAdjustedFontSize(12), fontFamily: 'regular', color: colors.disabledColor, paddingLeft: getAdjustedFontSize(8) }}>{items.foods.length} продуктов</Text></View>
-        <View style={{ marginLeft: 'auto' }}><Ionicons name="ios-arrow-down" size={32} color="green" /></View>
+        <View style={{ marginLeft: 'auto' }}><Ionicons name="ios-arrow-down" size={32} color="black" /></View>
       </View>
-      <ProductCategories foods={items.foods} />
+      <ProductCategories foods={items.foods} showMe="asd" />
     </TouchableOpacity>
   )
 }
@@ -236,8 +241,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: getAdjustedFontSize(16),
-    paddingLeft: getAdjustedFontSize(16)
+    padding: getAdjustedFontSize(16)
   }
 });
 
