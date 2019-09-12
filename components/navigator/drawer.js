@@ -13,6 +13,7 @@ import HomeCategoryList from "../home/HomeCategoryList";
 import Beta from "../demo/beta";
 import RestaurantMain from "../restaurants/RestaurantMain";
 import BackIcon from "../../assets/images/mainAssets/backicon.png";
+import ChooseAttributes from '../attributes/ChooseAttributes';
 
 
 const IoniconsHeaderButton = passMeFurther => (
@@ -34,9 +35,28 @@ const HomeStack = createStackNavigator({
     screen: RestaurantMain,
     navigationOptions: {
       headerStyle: {
-        backgroundColor: 'transparent'
+        backgroundColor: 'white'
       },
-      headerTransparent: true,
+      // headerTransparent: true,
+      headerBackImage: <Image source={BackIcon} />,
+      headerRight: (
+        <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
+          <Item style={{backgroundColor: 'white', borderRadius: 20}} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
+          <Item title="select" onPress={() => alert('select')} />
+          <Item title="ss" onPress={() => alert('select')} />
+          <Button title="asd" />
+          {/* <HiddenItem title="hidden in overflow menu" onPress={() => alert('hidden in overflow')} /> */}
+        </HeaderButtons>
+      ),
+    }
+  },
+  ChooseAttributes: {
+    screen: ChooseAttributes,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'white'
+      },
+      // headerTransparent: true,
       headerBackImage: <Image source={BackIcon} />,
       headerRight: (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>

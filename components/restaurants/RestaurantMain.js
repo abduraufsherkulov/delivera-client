@@ -7,54 +7,8 @@ import { Ionicons } from "@expo/vector-icons";
 import TouchableScale from 'react-native-touchable-scale';
 import axios from 'axios';
 
-function ProductCategories(props) {
-
-  return (
-    props.foods.map((u, i) => {
-      // console.log(u);
-      return (
-        <ListItem
-          key={u.id + u.image_id + ""}
-          Component={TouchableScale}
-          containerStyle={{ borderWidth: 1, borderColor: colors.borderColor, marginTop: getAdjustedFontSize(8), marginRight: getAdjustedFontSize(16), marginLeft: getAdjustedFontSize(16), borderRadius: 20 }}
-          friction={90} //
-          tension={100} // These props are passed to the parent component (here TouchableScale)
-          activeScale={0.95} //
-          // linearGradientProps={{
-          //   colors: ['#FF9800', '#F44336'],
-          //   start: [1, 0],
-          //   end: [0.2, 0],
-          // }}
-          // ViewComponent={LinearGradient} // Only if no expo
-          leftAvatar={<Avatar size="large"
-            source={require('../../assets/images/simples/productimage.png')}
-          />}
-          title={<View style={{display: 'flex', flexDirection: 'column'}}><Text>asdsa</Text><Text>asdsa</Text><Text>asdsa</Text></View>}
-          // titleStyle={{ color: 'red', fontWeight: 'bold' }}
-          // subtitleStyle={{ color: 'red' }}
-          // subtitle="Vice Chairman"
-        />
-      );
-    })
-  )
-}
 
 
-function MyListItem(props) {
-  const { items } = props;
-  return (
-    <TouchableOpacity
-      onPress={() => props.navigation.navigate('Details')}
-    >
-      <View style={styles.eachRow}>
-        <View><Text style={{ fontSize: getAdjustedFontSize(24), fontFamily: 'bold' }}>{items.title}</Text></View>
-        <View><Text style={{ fontSize: getAdjustedFontSize(12), fontFamily: 'regular', color: colors.disabledColor, paddingLeft: getAdjustedFontSize(8) }}>{items.foods.length} продуктов</Text></View>
-        <View style={{ marginLeft: 'auto' }}><Ionicons name="ios-arrow-down" size={32} color="black" /></View>
-      </View>
-      <ProductCategories foods={items.foods} showMe="asd" />
-    </TouchableOpacity>
-  )
-}
 
 function RestaurantMainHeader(props) {
   return (
@@ -99,8 +53,55 @@ function RestaurantMainHeader(props) {
   )
 }
 
+function MyListItem(props) {
+  const { items } = props;
+  
+  const [show, setShow] = useState(false)
+  const rightIcon = show ? 'ios-arrow-down' : 'ios-arrow-up';
+  return (
+    <React.Fragment>
+      <TouchableOpacity
+        onPress={() => setShow(!show)}
+      >
+        <View style={styles.eachRow}>
+          <View><Text style={{ fontSize: getAdjustedFontSize(24), fontFamily: 'bold' }}>{items.title}</Text></View>
+          <View><Text style={{ fontSize: getAdjustedFontSize(12), fontFamily: 'regular', color: colors.disabledColor, paddingLeft: getAdjustedFontSize(8) }}>{items.foods.length} продуктов</Text></View>
+          <View style={{ marginLeft: 'auto' }}><Ionicons name={rightIcon} size={32} color="black" /></View>
+        </View>
+      </TouchableOpacity>
+      <View style={{display: show ? 'flex' : 'none'}}>
+        {items.foods.map((u, i) => {
+          return (
+            <ListItem
+              key={u.id + u.image_id + ""}
+              onPress={() => props.navigation.navigate('ChooseAttributes')}
+              Component={TouchableScale}
+              containerStyle={{ alignItems: 'stretch', alignContent: 'space-between', borderWidth: 1, borderColor: colors.borderColor, marginTop: getAdjustedFontSize(8), marginRight: getAdjustedFontSize(16), marginLeft: getAdjustedFontSize(16), borderRadius: 20 }}
+              contentContainerStyle={{ flex: 1, justifyContent: 'flex-start' }}
+              friction={90} //
+              tension={100} // 
+              activeScale={0.95} //
+              leftAvatar={<Avatar size="large"
+                source={require('../../assets/images/simples/productimage.png')}
+              />}
+              title={
+                <View >
+                  <Text style={styles.topTitle}>{u.title}</Text>
+                  <Text numberOfLines={2} style={styles.middleDesc}>{u.description}</Text>
+                </View>
+              }
+              subtitle={<Text style={styles.bottomPrice}>{u.price} сум</Text>}
+            />
+          );
+        })}
+      </View>
+    </React.Fragment>
+  )
+}
+
 function RestaurantMain(props) {
-  const [allProducts, setallProducts] = useState(null)
+  const [allProducts, setallProducts] = useState(null);
+  // const [allProducts, setallProducts] = useState(null);
   function _renderItem({ item, index }) {
     return (<MyListItem
       key={item.id + index}
@@ -242,6 +243,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: getAdjustedFontSize(16)
+  },
+  topTitle: {
+    fontFamily: 'bold',
+    fontSize: getAdjustedFontSize(14)
+  },
+  middleDesc: {
+    fontFamily: 'regular',
+    fontSize: getAdjustedFontSize(10),
+    color: colors.disabledColor
+  },
+  bottomPrice: {
+    fontFamily: 'bold',
+    fontSize: getAdjustedFontSize(14),
+    marginTop: 'auto'
   }
 });
 
