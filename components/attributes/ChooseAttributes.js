@@ -1,10 +1,10 @@
 import React from 'react'
-import {Text, View} from 'react-native';
+import { Image, View } from 'react-native';
 
 function ChooseAttributes() {
     return (
         <View>
-            <Text>asd</Text>
+            <Image source={require('../../assets/images/simples/precart.png')} />
         </View>
     )
 }
