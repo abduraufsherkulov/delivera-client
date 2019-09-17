@@ -10,7 +10,8 @@ import {
 import SafeAreaView from 'react-native-safe-area-view';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Ionicons } from "@expo/vector-icons";
-import { HeaderButtons, HeaderButton, Item, hidd } from 'react-navigation-header-buttons';
+import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons';
+import { Logo } from "../../assets/images/svgs/BundledSvg";
 import HomeCategoryList from "../home/HomeCategoryList";
 import Beta from "../demo/beta";
 import RestaurantMain from "../restaurants/RestaurantMain";
@@ -23,6 +24,7 @@ const CustomDrawerContentComponent = props => (
       style={styles.container}
       forceInset={{ top: 'always', horizontal: 'never' }}
     >
+      <Logo />
       <DrawerNavigatorItems {...props} />
     </SafeAreaView>
   </ScrollView>
@@ -102,24 +104,24 @@ const MyDrawerNavigator = createDrawerNavigator(
   },
   {
     initialRouteName: "Alpha",
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: '#f4511e',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        color: 'white',
-      }
-    },
-    contentOptions: {
-      activeTintColor: '#e91e63',
-      itemsContainerStyle: {
-        marginVertical: 0,
-      },
-      iconContainerStyle: {
-        opacity: 1
-      }
-    },
+    // navigationOptions: {
+    //   headerStyle: {
+    //     backgroundColor: '#f4511e',
+    //   },
+    //   headerTintColor: '#fff',
+    //   headerTitleStyle: {
+    //     color: 'white',
+    //   }
+    // },
+    // contentOptions: {
+    //   activeTintColor: '#e91e63',
+    //   itemsContainerStyle: {
+    //     marginVertical: 0,
+    //   },
+    //   iconContainerStyle: {
+    //     opacity: 1
+    //   }
+    // },
     drawerType: 'slide',
     drawerPosition: "left",
     contentComponent: CustomDrawerContentComponent,

@@ -1,19 +1,40 @@
 import React from 'react';
-import { Image, Button } from 'react-native';
+import { Image, Button, StyleSheet, ScrollView } from 'react-native';
 import {
   createAppContainer
 } from "react-navigation";
 import {
-  createDrawerNavigator
+  createDrawerNavigator,
+  DrawerNavigatorItems
 } from "react-navigation-drawer";
+import SafeAreaView from 'react-native-safe-area-view';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Ionicons } from "@expo/vector-icons";
-import { HeaderButtons, HeaderButton, Item, hidd } from 'react-navigation-header-buttons';
+import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons';
+import { Logo } from "../../assets/images/svgs/BundledSvg";
 import HomeCategoryList from "../home/HomeCategoryList";
 import Beta from "../demo/beta";
 import RestaurantMain from "../restaurants/RestaurantMain";
 import BackIcon from "../../assets/images/mainAssets/backicon.png";
 import ChooseAttributes from '../attributes/ChooseAttributes';
+
+const CustomDrawerContentComponent = props => (
+  <ScrollView>
+    <SafeAreaView
+      style={styles.container}
+      forceInset={{ top: 'always', horizontal: 'never' }}
+    >
+      <Logo />
+      <DrawerNavigatorItems {...props} />
+    </SafeAreaView>
+  </ScrollView>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 
 const IoniconsHeaderButton = passMeFurther => (
@@ -41,7 +62,7 @@ const HomeStack = createStackNavigator({
       headerBackImage: <Image source={BackIcon} />,
       headerRight: (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-          <Item style={{backgroundColor: 'white', borderRadius: 20}} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
+          <Item style={{ backgroundColor: 'white', borderRadius: 20 }} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
           <Item title="select" onPress={() => alert('select')} />
           <Item title="ss" onPress={() => alert('select')} />
           <Button title="asd" />
@@ -60,7 +81,7 @@ const HomeStack = createStackNavigator({
       headerBackImage: <Image source={BackIcon} />,
       headerRight: (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-          <Item style={{backgroundColor: 'white', borderRadius: 20}} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
+          <Item style={{ backgroundColor: 'white', borderRadius: 20 }} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
           <Item title="select" onPress={() => alert('select')} />
           <Item title="ss" onPress={() => alert('select')} />
           <Button title="asd" />
@@ -83,8 +104,27 @@ const MyDrawerNavigator = createDrawerNavigator(
   },
   {
     initialRouteName: "Alpha",
+    // navigationOptions: {
+    //   headerStyle: {
+    //     backgroundColor: '#f4511e',
+    //   },
+    //   headerTintColor: '#fff',
+    //   headerTitleStyle: {
+    //     color: 'white',
+    //   }
+    // },
+    // contentOptions: {
+    //   activeTintColor: '#e91e63',
+    //   itemsContainerStyle: {
+    //     marginVertical: 0,
+    //   },
+    //   iconContainerStyle: {
+    //     opacity: 1
+    //   }
+    // },
+    drawerType: 'slide',
     drawerPosition: "left",
-    //   contentComponent: CustomDrawerContentComponent,
+    contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute: "DrawerOpen",
     drawerCloseRoute: "DrawerClose",
     drawerToggleRoute: "DrawerToggle"
