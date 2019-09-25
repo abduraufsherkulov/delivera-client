@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Button } from 'react-native';
+import { Image, Button, StyleSheet } from 'react-native';
 import {
   createAppContainer
 } from "react-navigation";
