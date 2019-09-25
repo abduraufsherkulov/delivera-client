@@ -1,13 +1,11 @@
 import React from 'react';
-import { Image, Button, StyleSheet, ScrollView } from 'react-native';
+import { Image, Button } from 'react-native';
 import {
   createAppContainer
 } from "react-navigation";
 import {
-  createDrawerNavigator,
-  DrawerNavigatorItems
+  createDrawerNavigator
 } from "react-navigation-drawer";
-import SafeAreaView from 'react-native-safe-area-view';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons';
@@ -62,7 +60,7 @@ const HomeStack = createStackNavigator({
       headerBackImage: <Image source={BackIcon} />,
       headerRight: (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-          <Item style={{ backgroundColor: 'white', borderRadius: 20 }} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
+          <Item style={{backgroundColor: 'white', borderRadius: 20}} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
           <Item title="select" onPress={() => alert('select')} />
           <Item title="ss" onPress={() => alert('select')} />
           <Button title="asd" />
@@ -81,7 +79,7 @@ const HomeStack = createStackNavigator({
       headerBackImage: <Image source={BackIcon} />,
       headerRight: (
         <HeaderButtons HeaderButtonComponent={IoniconsHeaderButton}>
-          <Item style={{ backgroundColor: 'white', borderRadius: 20 }} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
+          <Item style={{backgroundColor: 'white', borderRadius: 20}} title="search" iconName="ios-heart-empty" onPress={() => alert('search')} />
           <Item title="select" onPress={() => alert('select')} />
           <Item title="ss" onPress={() => alert('select')} />
           <Button title="asd" />
@@ -124,7 +122,7 @@ const MyDrawerNavigator = createDrawerNavigator(
     // },
     drawerType: 'slide',
     drawerPosition: "left",
-    contentComponent: CustomDrawerContentComponent,
+    //   contentComponent: CustomDrawerContentComponent,
     drawerOpenRoute: "DrawerOpen",
     drawerCloseRoute: "DrawerClose",
     drawerToggleRoute: "DrawerToggle"
