@@ -101,6 +101,7 @@ function MyListItem(props) {
 
 function RestaurantMain(props) {
   const [allProducts, setallProducts] = useState(null);
+  let {id, logo, name, } = props.navigation.getParam("items");
   // const [allProducts, setallProducts] = useState(null);
   function _renderItem({ item, index }) {
     return (<MyListItem
@@ -115,9 +116,10 @@ function RestaurantMain(props) {
   }
 
   useEffect(() => {
+    console.log(id)
     let ignore = false;
     // https://api.delivera.uz/app/get-entity-inner-products?entity_domain_id=47
-    const endpoint = `https://api.delivera.uz/app/get-entity-inner-products?entity_domain_id=47`;
+    const endpoint = `https://api.delivera.uz/app/get-entity-inner-products?entity_domain_id=${id}`;
     axios({
       method: "get",
       url: endpoint,
@@ -130,7 +132,7 @@ function RestaurantMain(props) {
       }
     })
       .then(response => {
-        // console.log(response.data);
+        console.log(response.data);
         if (!ignore) setallProducts(response.data.categories);
 
       })

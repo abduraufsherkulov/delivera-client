@@ -9,7 +9,9 @@ import axios from 'axios';
 function MyListItem(props) {
   return (
     <TouchableOpacity
-      onPress={() => props.navigation.navigate('Details')}
+      onPress={() => props.navigation.navigate('Details', {
+        items: props.items
+      })}
     >
       <Card
         containerStyle={{ borderWidth: 1, borderColor: '#EDEDED', padding: 10 }}
@@ -115,6 +117,7 @@ function HomeCategoryList(props) {
       }
     })
       .then(response => {
+        // console.log(response.data)
         if (!ignore) settopRestaurants(response.data);
       })
       .catch(error => {

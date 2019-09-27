@@ -1,11 +1,12 @@
 import React from 'react';
-import { Image, Button } from 'react-native';
+import { Image, Button, StyleSheet } from 'react-native';
 import {
   createAppContainer
 } from "react-navigation";
 import {
   createDrawerNavigator
 } from "react-navigation-drawer";
+
 import { createStackNavigator } from 'react-navigation-stack';
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderButtons, HeaderButton, Item } from 'react-navigation-header-buttons';
